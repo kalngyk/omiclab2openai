@@ -1,5 +1,7 @@
 <a name="readme-top"></a>
 
+This is forked from [https://github.com/ShipBit/slickgpt] but with firebase disabled.
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]

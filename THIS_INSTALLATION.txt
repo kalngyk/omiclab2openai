@@ -1,0 +1,14 @@
+
+Disable Firebase (share feature)
+
+1. Comment out entire src/misc/firebase.ts which loads firebase parameters in .env
+
+2. Comment out code to save to firebase in src/routes/api/share/+server.ts
+
+
+Install Heroku
+
+- npm install -g heroku
+
+
+

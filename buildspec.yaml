@@ -8,6 +8,3 @@ phases:
     commands:
       - npm install
       - npm run build
-  post_build:
-    commands:
-      - aws s3 sync public/ s3://my-bucket

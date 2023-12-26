@@ -11,3 +11,10 @@ phases:
   post_build:
     commands:
       - aws s3 sync public/ s3://iamgroot-bucket
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: iamgroot
+  name: iamgroot
+  discard-paths: no

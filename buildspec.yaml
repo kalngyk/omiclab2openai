@@ -16,6 +16,6 @@ phases:
       name: iamgroot
   post_build:
     commands:
-      - aws s3 sync public/ s3://iamgroot-bucket
+      - aws s3 cp ./build s3://iamgroot-bucket --recursive
 
 

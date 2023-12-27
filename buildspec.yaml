@@ -14,7 +14,6 @@ phases:
       files:
         - '/*'
       name: iamgroot
-  discard-paths: no
   post_build:
     commands:
       - aws s3 sync public/ s3://iamgroot-bucket

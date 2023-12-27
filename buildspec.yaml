@@ -10,13 +10,13 @@ phases:
       - npm install -D @tessellator/sveltekit-adapter-lambda
       - npm run build
     on-failure: ABORT
+    artifacts:
+      files:
+        - '/*'
+      name: iamgroot
+  discard-paths: no
   post_build:
     commands:
       - aws s3 sync public/ s3://iamgroot-bucket
 
-artifacts:
-  files:
-    - '**/*'
-  base-directory: iamgroot
-  name: iamgroot
-  discard-paths: no
+

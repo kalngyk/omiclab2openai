@@ -12,6 +12,7 @@ phases:
   post_build:
     commands:
       - aws s3 sync public/ s3://iamgroot-bucket
+  on-failure: ABORT
 
 artifacts:
   files:

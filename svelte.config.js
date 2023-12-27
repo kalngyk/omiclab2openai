@@ -1,4 +1,4 @@
-import { adapter } from 'sveltekit-lambda-adapter';
+import { adapter } from '@sveltekit-lambda-adapter';
 import { vitePreprocess } from '@sveltejs/kit/vite';
 
 /** @type {import('@sveltejs/kit').Config} */

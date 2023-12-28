@@ -1,20 +1,17 @@
 version: 1
 frontend:
   phases:
-    install:
-      runtime-versions:
-      nodejs: 14
-    build:
+    preBuild:
       commands:
         - npm install
-        - npm run build
-    post_build:
+        - npm install -D @tessellator/sveltekit-adapter-lambda
+    build:
       commands:
-        - aws s3 sync public/ s3://iamgroot-bucket
+        - npm run build
   artifacts:
-    baseDirectory: dist
+    baseDirectory: build
     files:
       - '**/*'
   cache:
     paths:
-      - node_modules/**/* 
+      - node_modules/**/*

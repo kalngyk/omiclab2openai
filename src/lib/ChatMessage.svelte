@@ -38,43 +38,36 @@
 </script>
 
 <div
-	class="grid px-5 py-2 rounded-2xl {message.role === 'assistant'
-		? 'md:place-self-start'
-		: 'md:place-self-end'}"
-	class:variant-ghost-surface={message.role === 'user'}
-	class:variant-ghost-secondary={message.role === 'assistant'}
-	class:variant-ghost-warning={message.isAborted}
-	class:rounded-tl-none={message.role === 'assistant'}
-	class:rounded-tr-none={message.role === 'user'}
+	class="flex gap-2 px-5 py-2 place-self-start"
 >
-	<!-- Header -->
-	<div class="flex justify-between space-x-12 mb-1 items-center">
+
 		<!-- Author -->
-		<span class="font-bold">{message.role === 'user' ? 'You' : 'AI'}:</span>
+		<div class="w-[40px] h-[40px] text-white text-center font-bold {message.role === 'user' ? "bg-[blue]" : "bg-[red]"}" style="border-radius: 20px;line-height: 40px">
+			{message.role === 'user' ? 'YOU' : 'AI'}
+		</div>
 
-		<div class="flex space-x-4">
+		<!-- <div class="flex space-x-4"> -->
 			<!-- Tokens -->
-			<TokenCost tokens={countTokens(message)} />
+			<!-- <TokenCost tokens={countTokens(message)} /> -->
 
-			{#if $chatStore[slug] && message.id}
-				<div class="flex space-x-0">
+			<!-- {#if $chatStore[slug] && message.id}
+				<div class="flex space-x-0"> -->
 					<!-- Edit Message / Branch chat -->
-					{#if message.role === 'user'}
+					<!-- {#if message.role === 'user'}
 						<button class="btn btn-sm" on:click={() => dispatch('editMessage', message)}>
 							<PencilSquare class="w-6 h-6" />
 						</button>
-					{/if}
+					{/if} -->
 					<!-- Delete message -->
-					<button class="btn btn-sm" on:click={() => modalConfirmDelete(message.id)}>
+					<!-- <button class="btn btn-sm" on:click={() => modalConfirmDelete(message.id)}>
 						<XMark class="w-6 h-6" />
 					</button>
 				</div>
-			{/if}
-		</div>
-	</div>
+			{/if} -->
+		<!-- </div> -->
 
 	<!-- Message Content -->
-	<div>
+	<div class="flex-1 pt-1 leading-[2] font-bold">
 		{@html snarkdown(message.content)}
 	</div>
 </div>

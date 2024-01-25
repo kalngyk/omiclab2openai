@@ -228,7 +228,7 @@
 </script>
 
 <footer
-	class="sticky card space-y-4 bottom-0 z-10 variant-filled-surface-700 py-2 md:py-4 md:px-8 md:rounded-xl"
+	class="sticky bottom-0 bg-[#dae3f3] space-y-4 z-10 variant-filled-surface-700 py-1 md:px-8 md:rounded-[3rem]"
 >
 	{#if $isLoadingAnswerStore}
 		<div class="flex items-center justify-center">
@@ -237,7 +237,7 @@
 			</button>
 		</div>
 	{:else}
-		<div class="flex flex-col space-y-2 md:mx-auto md:w-3/4 px-2 md:px-8">
+		<div class="flex flex-col space-y-2">
 			{#if isEditMode}
 				<div class="flex items-center justify-between">
 					<p>Editing creates a <span class="italic">chat branch</span>.</p>
@@ -248,29 +248,22 @@
 			{/if}
 			<div class="grid">
 				<form use:focusTrap={!$isLoadingAnswerStore} on:submit|preventDefault={handleSubmit}>
-					<div class="grid grid-cols-[1fr_auto]">
+					<div class="grid grid-cols-[1fr_auto] items-center">
 						<!-- Input -->
 						<textarea
-							class="textarea overflow-hidden min-h-[42px]"
+							class="my-textarea textarea font-bold border-none max-h-[90px] bg-transparent p-0"
+							style="border-bottom: 1px solid #74777d;border-radius: 0;resize:none;"
 							rows="1"
-							placeholder="Enter to send, Shift+Enter for newline"
+							placeholder="按下回车键（Enter）将发送您输入的消息，“Shift+Enter for newline”换行。"
 							use:textareaAutosizeAction
 							on:keydown={handleKeyDown}
 							bind:value={input}
 							bind:this={textarea}
 						/>
 						<div class="flex flex-col md:flex-row items-center justify-end md:items-end">
-							<!-- Insert Code button -->
-							<button
-								type="submit"
-								class="btn btn-sm ml-2"
-								on:click|preventDefault={handleInsertCode}
-							>
-								<CodeBracket class="w-6 h-6" />
-							</button>
 							<!-- Send button -->
 							<button type="submit" class="btn btn-sm ml-2">
-								<PaperAirplane class="w-6 h-6" />
+								<img class="h-6" src="/airport.png" alt="发送" />
 							</button>
 						</div>
 					</div>
@@ -290,3 +283,9 @@
 		</div>
 	{/if}
 </footer>
+
+<style lang="postcss">
+	.my-textarea::placeholder {
+		font-style: italic;
+	}
+</style>

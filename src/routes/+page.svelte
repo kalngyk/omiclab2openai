@@ -17,6 +17,8 @@
 	import { goto } from '$app/navigation';
 	import { createNewChat, showToast } from '$misc/shared';
 	import { chatStore, isTimeagoInitializedStore } from '$misc/stores';
+	import { fly } from 'svelte/transition';
+	import Header from '$lib/Header.svelte';
 
 	const modalStore = getModalStore();
 	const toastStore = getToastStore();
@@ -82,103 +84,171 @@
 	}
 </script>
 
-<div
-	class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 px-4 md:px-8"
->
-	<!-- Add button -->
-	<button class="card p-4 grid variant-ghost-primary" on:click={() => createNewChat()}>
-		<div class="flex space-x-2 md:space-x-4 items-center self-center justify-self-center">
-			<PlusCircle class="w-10 h-10" />
-			<span class="text-xl">New Chat</span>
+<Header isRootRoute={true}/>
+<div>
+	<div class="relative text-white italic text-center text animate-text">
+		<div class="word">G</div>
+		<div class="word">e</div>
+		<div class="word">t</div>
+		<div style="display: inline-block;">&nbsp;</div>
+		<div class="word">S</div>
+		<div class="word">t</div>
+		<div class="word">a</div>
+		<div class="word">r</div>
+		<div class="word">t</div>
+		<div class="word">e</div>
+		<div class="word">d</div>
+		<div class="absolute flex">
+			<div class="word">S</div>
+			<div class="word">l</div>
+			<div class="word">i</div>
+			<div class="word">c</div>
+			<div class="word">k</div>
+			<div class="word">G</div>
+			<div class="word">P</div>
+			<div class="word">T</div>
 		</div>
-	</button>
-
-	<!-- Saved chats -->
-	{#each sortedChats as [slug, chat]}
-		<a href={`/${slug}`} class="card p-4 flex flex-col variant-ghost-surface justify-end">
-			<div class="flex flex-col">
-				<div class="flex items-center space-x-2">
-					<div>
-						{#if chat.updateToken}
-							<!-- Shared -->
-							<Share class="w-10 h-10" />
-						{:else}
-							<!-- Local -->
-							<ChatBubbleLeftRight class="w-10 h-10" />
-						{/if}
-					</div>
-					<h2 class="h2 line-clamp-2 text-lg font-bold">{chat.title}</h2>
-				</div>
-			</div>
-			<hr class="my-4" />
-			<footer class="flex justify-evenly space-x-2">
-				<div class="badge variant-filled-surface flex items-center space-x-1">
-					<ChatBubbleBottomCenter class="w-6 h-6" />
-					<span>{chatStore.countAllMessages(chat)}</span>
-				</div>
-				<div class="badge variant-filled-surface flex items-center space-x-1">
-					<AcademicCap class="w-6 h-6" />
-					<span>{chat.settings.model}</span>
-				</div>
-				<div class="badge variant-filled-surface flex items-center space-x-1">
-					<Clock class="w-6 h-6" />
-					{#if timeAgo}
-						<span class="self-center">
-							{timeAgo.format(new Date(chat.created), 'twitter-minute-now')}
-						</span>
-					{/if}
-				</div>
-			</footer>
-		</a>
-	{/each}
-
-	<!-- Discord -->
-	<a
-		class="card p-4 grid variant-ghost-tertiary"
-		href="https://discord.gg/k8tTBar3gZ"
-		target="_blank"
-	>
-		<div class="flex space-x-2 md:space-x-4 items-center self-center justify-self-center">
-			<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-10 h-10">
-				<path
-					d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"
-					style="fill: currentColor;"
-				/>
-			</svg>
-			<span class="text-xl">Join our Discord</span>
-		</div>
-	</a>
-
-	<!-- Patreon -->
-	<a
-		class="card p-4 grid variant-ghost-tertiary"
-		href="https://patreon.com/ShipBit?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_creator&utm_content=join_link"
-		target="_blank"
-	>
-		<div class="flex space-x-2 md:space-x-4 items-center self-center justify-self-center">
-			<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-10 h-10">
-				<path
-					d="M22.957 7.21c-.004-3.064-2.391-5.576-5.191-6.482-3.478-1.125-8.064-.962-11.384.604C2.357 3.231 1.093 7.391 1.046 11.54c-.039 3.411.302 12.396 5.369 12.46 3.765.047 4.326-4.804 6.068-7.141 1.24-1.662 2.836-2.132 4.801-2.618 3.376-.836 5.678-3.501 5.673-7.031Z"
-					style="fill: currentColor;"
-				/>
-			</svg>
-			<span class="text-xl">Support us</span>
-		</div>
-	</a>
-
-	<!-- Clear button -->
-	{#if Object.entries($chatStore)?.length}
-		<button class="card p-4 grid variant-ghost-error" on:click={modalConfirmDelete}>
+	</div>
+	<div class="flex justify-center gap-8 animate-actions font-bold">
+		<!-- Add button -->
+		<button class="card p-2 bg-[white]" on:click={() => createNewChat()}>
 			<div class="flex space-x-2 md:space-x-4 items-center self-center justify-self-center">
-				<Trash class="w-10 h-10" />
-				<span class="text-xl">Clear storage</span>
+				<PlusCircle class="w-10 h-10" fill="#e5e7eb" />
+				<span class="relative top-[-2px] text-xl">新建对话</span>
 			</div>
 		</button>
-	{/if}
+	
+		<!-- Discord -->
+		<a
+			class="card p-2 bg-[white]"
+			href="https://discord.gg/k8tTBar3gZ"
+			target="_blank"
+		>
+			<div class="flex space-x-2 md:space-x-4 items-center self-center justify-self-center">
+				<PlusCircle class="w-10 h-10" fill="#e5e7eb" />
+				<span class="relative top-[-2px] text-xl">加入我们的社区</span>
+			</div>
+		</a>
+	
+		<!-- Patreon -->
+		<a
+			class="card p-2 bg-[black]"
+			href="https://patreon.com/ShipBit?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_creator&utm_content=join_link"
+			target="_blank"
+		>
+			<div class="flex items-center justify-center h-full">
+				<span class="relative top-[-2px] text-xl text-white">支持我们</span>
+			</div>
+		</a>
+	</div>
+	<div class="absolute bottom-4 w-full text-white text-center z-10">copyright @2023 ByoRyn Shenzhen, All right reserved</div>
+	<div class="absolute bottom-0 w-full animate-svg">
+		<svg width="100%" viewBox="100 0 260 50" height="100" preserveAspectRatio="none">
+			<defs>
+				<path id="wave" d="M0 0c22.863 0 40.637 25.93 63.5 25.93S104.137 0 127 0s40.637 25.93 63.5 25.93S231.137 0 254 0s40.637 25.93 63.5 25.93S358.137 0 381 0s40.637 25.93 63.5 25.93S485.137 0 508 0s40.637 25.93 63.5 25.93S612.137 0 635 0s40.637 25.93 63.5 25.93S739.137 0 762 0v52.917H0z" />
+			</defs>
+			<use class="wave" xlink:href="#wave" fill="#b0bcf9" x="-140" y="0"></use>
+			<use class="wave" xlink:href="#wave" fill="#7e9bec" x="20" y="0"></use>
+			<use class="wave" xlink:href="#wave" fill="#5078ea" x="70" y="0"></use>
+		</svg>
+	</div>
+	<div class="absolute bottom-12 right-[25rem] w-0 h-2 bg-[#5078ea] slide"></div>
 </div>
 
 <style lang="postcss">
+	@keyframes wave {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+    100% { transform: translateY(0); }
+	}
+	.wave {
+		animation: wave 2s infinite ease-in-out;
+	}
+	.wave:nth-child(2) {
+		animation-delay: 0.5s;
+	}
+	.wave:nth-child(3) {
+		animation-delay: 1s;
+	}
+
+	@keyframes slide {
+    0% { width: 0; right: 25rem; }
+		15% { width: 3.5rem; right: 23rem; }
+    30% { width: 7rem; right: 25rem; }
+    100% { width: 7rem; right: 100%; }
+	}
+	.slide {
+		animation: slide 2s 1s ease-out;
+	}
+
+	@keyframes svg {
+    0% { transform: translateY(100px); }
+    100% { transform: translateY(0); opacity: 1; }
+	}
+	.animate-svg {
+		opacity: 0;
+		animation: svg 1s 3s forwards;
+	}
+
+	@keyframes text {
+    0% { transform: translateY(1000px); }
+    100% { transform: translateY(0); opacity: 1; }
+	}
+	.animate-text {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 25rem;
+		line-height: 20rem;
+		margin-bottom: 3rem;
+		font-family:'Times New Roman', Times, serif;
+		font-size: 15rem;
+	}
+	.animate-text .absolute{
+		left: 50%;
+		bottom: 0;
+		height: 8rem;
+		color: blue;
+		transform: translate(-50%, 0);
+		font-size: 11rem;
+		line-height: 1.5rem;
+	}
+	.animate-text .word{
+		display: inline-block;
+		opacity: 0;
+		animation: text 2s forwards;
+	}
+	.animate-text>.word:nth-of-type(1) { animation-delay: 2.5s; }
+	.animate-text>.word:nth-of-type(2) { animation-delay: 2.55s; }
+	.animate-text>.word:nth-of-type(3) { animation-delay: 2.6s; }
+	.animate-text>.word:nth-of-type(5) { animation-delay: 2.65s; }
+	.animate-text>.word:nth-of-type(6) { animation-delay: 2.7s; }
+	.animate-text>.word:nth-of-type(7) { animation-delay: 2.75s; }
+	.animate-text>.word:nth-of-type(8) { animation-delay: 2.8s; }
+	.animate-text>.word:nth-of-type(9) { animation-delay: 2.85s; }
+	.animate-text>.word:nth-of-type(10) { animation-delay: 2.9s; }
+	.animate-text>.word:nth-of-type(11) { animation-delay: 2.95s; }
+	.animate-text div .word:nth-of-type(1) { animation-delay: 2.65s; }
+	.animate-text div .word:nth-of-type(2) { animation-delay: 2.7s; }
+	.animate-text div .word:nth-of-type(3) { animation-delay: 2.75s; }
+	.animate-text div .word:nth-of-type(4) { animation-delay: 2.8s; }
+	.animate-text div .word:nth-of-type(5) { animation-delay: 2.85s; }
+	.animate-text div .word:nth-of-type(6) { animation-delay: 2.9s; }
+	.animate-text div .word:nth-of-type(7) { animation-delay: 2.95s; }
+	.animate-text div .word:nth-of-type(8) { animation-delay: 3.0s; }
+
+	@keyframes actions {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+	}
+	.animate-actions {
+		opacity: 0;
+		animation: actions 1s 3s forwards;
+	}
+
 	.card {
-		min-height: 9rem;
+		width: 250px;
+		height: 3.5rem;
+		border-radius: 1.75rem;
 	}
 </style>

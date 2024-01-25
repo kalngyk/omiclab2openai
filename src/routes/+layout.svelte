@@ -80,19 +80,10 @@
 </svelte:head>
 
 <AppShell
-	regionPage="relative lg:px-12"
-	slotHeader="py-2 md:py-6 px-4 lg:px-12"
-	slotFooter="py-2 md:py-6 px-4 lg:px-12"
+	regionPage="relative"
 >
-	<svelte:fragment slot="header">
-		<Header />
-	</svelte:fragment>
 
 	<slot />
-
-	<svelte:fragment slot="footer">
-		<Footer />
-	</svelte:fragment>
 </AppShell>
 
 <!-- Skeleton Singletons: -->

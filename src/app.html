@@ -11,8 +11,17 @@
 		<meta name="msapplication-TileColor" content="#da532c" />
 		<meta name="theme-color" content="#252121" />
 		%sveltekit.head%
+		<style>
+			@font-face {  
+				font-family: 'MyFont';  
+				src: url('/font.ttf') format('opentype');  
+			}
+			body {
+				font-family: 'myfont', sans-serif !important;
+			}
+		</style>
 	</head>
-	<body data-theme="skeleton">
+	<body style="background: #f6f6f6;" data-theme="skeleton">
 		<div style="display: contents" class="h-full overflow-hidden">%sveltekit.body%</div>
 	</body>
 </html>

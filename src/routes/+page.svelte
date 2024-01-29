@@ -98,16 +98,6 @@
 		<div class="word">t</div>
 		<div class="word">e</div>
 		<div class="word">d</div>
-		<div class="absolute flex">
-			<div class="word">S</div>
-			<div class="word">l</div>
-			<div class="word">i</div>
-			<div class="word">c</div>
-			<div class="word">k</div>
-			<div class="word">G</div>
-			<div class="word">P</div>
-			<div class="word">T</div>
-		</div>
 	</div>
 	<div class="flex justify-center gap-8 animate-actions font-bold">
 		<!-- Add button -->
@@ -119,7 +109,7 @@
 		</button>
 	
 		<!-- Discord -->
-		<a
+		<!-- <a
 			class="card p-2 bg-[white]"
 			href="https://discord.gg/k8tTBar3gZ"
 			target="_blank"
@@ -128,7 +118,7 @@
 				<PlusCircle class="w-10 h-10" fill="#e5e7eb" />
 				<span class="relative top-[-2px] text-xl">加入我们的社区</span>
 			</div>
-		</a>
+		</a> -->
 	
 		<!-- Patreon -->
 		<a
@@ -199,19 +189,11 @@
 		justify-content: center;
 		align-items: center;
 		height: 25rem;
+		color: blue;
 		line-height: 20rem;
 		margin-bottom: 3rem;
 		font-family:'Times New Roman', Times, serif;
 		font-size: 15rem;
-	}
-	.animate-text .absolute{
-		left: 50%;
-		bottom: 0;
-		height: 8rem;
-		color: blue;
-		transform: translate(-50%, 0);
-		font-size: 11rem;
-		line-height: 1.5rem;
 	}
 	.animate-text .word{
 		display: inline-block;
@@ -228,14 +210,6 @@
 	.animate-text>.word:nth-of-type(9) { animation-delay: 2.85s; }
 	.animate-text>.word:nth-of-type(10) { animation-delay: 2.9s; }
 	.animate-text>.word:nth-of-type(11) { animation-delay: 2.95s; }
-	.animate-text div .word:nth-of-type(1) { animation-delay: 2.65s; }
-	.animate-text div .word:nth-of-type(2) { animation-delay: 2.7s; }
-	.animate-text div .word:nth-of-type(3) { animation-delay: 2.75s; }
-	.animate-text div .word:nth-of-type(4) { animation-delay: 2.8s; }
-	.animate-text div .word:nth-of-type(5) { animation-delay: 2.85s; }
-	.animate-text div .word:nth-of-type(6) { animation-delay: 2.9s; }
-	.animate-text div .word:nth-of-type(7) { animation-delay: 2.95s; }
-	.animate-text div .word:nth-of-type(8) { animation-delay: 3.0s; }
 
 	@keyframes actions {
     0% { opacity: 0; }
